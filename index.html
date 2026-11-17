@@ -80,7 +80,8 @@
       </div>
       <div class="code-panel">
         <p class="code-caption"><span>FloatingText.cs</span> <span>Update() 일부</span></p>
-        <pre tabindex="0" aria-label="텍스트 이동과 소멸을 처리하는 C# 코드"><code>float age = (Time.time - _bornAt) / LifeSeconds;
+        <pre tabindex="0" aria-label="텍스트 이동과 소멸을 처리하는 C# 코드"><code>float age = (Time.time - _bornAt)
+    / LifeSeconds;
 if (age &gt;= 1f)
 {
     Destroy(gameObject);
