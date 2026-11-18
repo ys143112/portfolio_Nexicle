@@ -7,7 +7,7 @@
 <title>정연수 · Unity 클라이언트 개발</title>
 <meta name="description" content="3인 팀으로 만든 슬라임 목장. C# 피해·회복 숫자 표시, 도감·플레이 안내 개선, GIF 프레임 변환 작업을 소개합니다.">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="styles.css?v=review2">
+<link rel="stylesheet" href="styles.css?v=20261118">
 <script src="script.js" defer></script>
 </head>
 <body>
@@ -20,7 +20,7 @@
       <a href="#bestiary">도감·안내</a>
       <a href="#gif-tool">GIF 변환</a>
     </nav>
-    <a class="header-pdf" href="assets/Jeong_Yeonsoo_Portfolio.pdf?v=review2" download>PDF 다운로드 <span aria-hidden="true">↓</span></a>
+    <a class="header-pdf" href="assets/Jeong_Yeonsoo_Portfolio.pdf?v=20261118" download>PDF 다운로드 <span aria-hidden="true">↓</span></a>
   </div>
 </header>
 <main id="main" class="page">
@@ -32,9 +32,9 @@
       <div class="my-role">
         <p class="small-label">제가 맡은 부분</p>
         <ul>
-          <li>피해·회복 숫자 표시</li>
-          <li>도감·플레이 안내 개선</li>
-          <li>GIF 프레임 변환</li>
+          <li><a href="#floating-text">피해·회복량 표시 스크립트 작성</a></li>
+          <li><a href="#bestiary">수집 도감과 조작 안내 화면 수정</a></li>
+          <li><a href="#gif-tool">GIF 프레임 변환 도구 제작</a></li>
         </ul>
       </div>
       <div class="project-links">
@@ -43,16 +43,16 @@
       </div>
     </div>
     <figure class="intro-figure">
-      <button class="image-button" type="button" data-image="assets/bestiary.jpg" data-crop="0,0,1440,810" data-caption="슬라임 목장 · 3인 팀 프로젝트 실행 화면" aria-label="슬라임 목장 실행 화면 원본 보기">
+      <button class="image-button" type="button" data-image="assets/bestiary.jpg" data-crop="0,0,1440,810" data-caption="수집 도감과 조작 안내를 연 게임 화면" aria-label="슬라임 목장 실행 화면 원본 보기">
         <span class="crop game-scene"><img src="assets/bestiary.jpg" width="1920" height="1080" alt="목장 건물과 포털을 배경으로 수집 도감과 조작법 안내가 열린 슬라임 목장 실행 화면" fetchpriority="high"></span>
         <span class="zoom-mark" aria-hidden="true">원본 보기 ↗</span>
       </button>
-      <figcaption>슬라임 목장 · 3인 팀 프로젝트 실행 화면</figcaption>
+      <figcaption>수집 도감과 조작 안내를 연 게임 화면</figcaption>
     </figure>
   </section>
 
   <section class="work-section" id="floating-text" aria-labelledby="floating-title">
-    <div class="section-heading"><p class="section-index">01 <span>C#</span></p><h2 id="floating-title">피해·회복 숫자 표시</h2></div>
+    <div class="section-heading"><p class="section-index">Unity · C#</p><h2 id="floating-title">피해·회복 숫자 표시</h2></div>
     <div class="floating-layout">
       <figure class="damage-figure">
         <div class="damage-mat">
@@ -64,28 +64,21 @@
         <figcaption>실행 화면 · 피해 숫자 5 표시</figcaption>
       </figure>
       <div class="floating-copy">
-        <p class="lead">대상 위에 피해·회복량을 띄우는 <code>FloatingText</code> 스크립트를 C#으로 작성했습니다.</p>
+        <p class="lead">피해량과 회복량을 대상 위에 띄우는 <code>FloatingText</code> 스크립트를 작성했습니다.</p>
         <dl class="fact-table">
-          <div><dt>문제</dt><dd>처음에는 폰트를 작게 설정해 화면을 확대하면 숫자가 흐려졌습니다.</dd></div>
-          <div><dt>수정</dt><dd>폰트 크기를 키우고 표시 배율을 줄였습니다.</dd></div>
-          <div><dt>확인</dt><dd>숫자의 화면상 크기는 유지됐고, 다시 확대해도 값을 읽을 수 있었습니다.</dd></div>
+          <div><dt>문제</dt><dd>처음에 폰트를 너무 작게 설정해서 화면을 확대하면 숫자가 흐려졌습니다.</dd></div>
+          <div><dt>수정</dt><dd>글자를 크게 그리되 화면에서 차지하는 크기는 유지하려고 표시 배율을 줄였습니다.</dd></div>
+          <div><dt>결과</dt><dd>숫자 크기는 그대로였고, 확대해도 값을 읽을 수 있었습니다.</dd></div>
         </dl>
-      </div>
-    </div>
-    <div class="code-row">
-      <div class="code-note">
-        <h3>표시 방식</h3>
-        <p>피해는 붉은색, 회복은 녹색과 + 기호로 구분합니다. 숫자는 위로 떠오르며 흐려지고, 0.8초 뒤 삭제됩니다.</p>
         <div class="code-panel font-settings">
-          <p class="code-caption"><span>글자 설정</span><span>Spawn() 일부</span></p>
+          <p class="code-caption"><span>수정한 글자 설정</span><span>FloatingText.cs</span></p>
           <pre tabindex="0" aria-label="폰트 크기와 표시 배율을 설정하는 C# 코드"><code>mesh.fontSize = <span class="code-value">64</span>;
 mesh.characterSize = <span class="code-value">0.07f</span>;</code></pre>
-        </div>
-        <a class="text-link" href="https://github.com/JugleGame/Slime/blob/4e56b515f7b13e740e927a01e3dd2b4f48b30f6b/Assets/Scripts/UI/FloatingText.cs" target="_blank" rel="noopener noreferrer">FloatingText.cs 원문 <span aria-hidden="true">↗</span></a>
-      </div>
-      <div class="code-panel">
-        <p class="code-caption"><span>이동·투명도·소멸</span><span>Update() 일부</span></p>
-        <pre tabindex="0" aria-label="텍스트 이동, 투명도와 소멸을 처리하는 C# 코드"><code>float age = (Time.time - _bornAt)
+          <details>
+            <summary>숫자의 색·움직임·수명 처리 코드 <span aria-hidden="true">+</span></summary>
+            <div class="details-body">
+              <p class="code-caption"><span>숫자가 위로 떠오르며 흐려지고 0.8초 뒤 사라집니다.</span><span>Update()</span></p>
+              <pre tabindex="0" aria-label="텍스트 이동, 투명도와 소멸을 처리하는 C# 코드"><code>float age = (Time.time - _bornAt)
     / LifeSeconds;
 if (age &gt;= 1f)
 {
@@ -98,11 +91,8 @@ transform.position += Vector3.up
 Color color = _text.color;
 color.a = 1f - age * age;
 _text.color = color;</code></pre>
-        <details>
-          <summary>피해·회복 구분 코드 보기 <span aria-hidden="true">+</span></summary>
-          <div class="details-body">
-            <p class="code-caption">Damage() / Heal()</p>
-            <pre tabindex="0" aria-label="피해와 회복을 다른 색과 기호로 표시하는 C# 코드"><code>public static void Damage(
+              <p class="code-caption">피해는 붉은색, 회복은 +가 붙은 녹색으로 표시합니다.</p>
+              <pre tabindex="0" aria-label="피해와 회복을 다른 색과 기호로 표시하는 C# 코드"><code>public static void Damage(
     Vector3 worldPosition, int amount)
 {
     Spawn(worldPosition,
@@ -115,14 +105,16 @@ public static void Heal(
     Spawn(worldPosition,
         "+" + amount, HealColor);
 }</code></pre>
-          </div>
-        </details>
+            </div>
+          </details>
+        </div>
+        <a class="text-link" href="https://github.com/JugleGame/Slime/blob/4e56b515f7b13e740e927a01e3dd2b4f48b30f6b/Assets/Scripts/UI/FloatingText.cs" target="_blank" rel="noopener noreferrer">FloatingText.cs 전체 코드 <span aria-hidden="true">↗</span></a>
       </div>
     </div>
   </section>
 
   <section class="work-section" id="bestiary" aria-labelledby="bestiary-title">
-    <div class="section-heading"><p class="section-index">02 <span>UI</span></p><h2 id="bestiary-title">도감과 플레이 안내 개선</h2></div>
+    <div class="section-heading"><p class="section-index">플레이 테스트</p><h2 id="bestiary-title">도감과 플레이 안내 개선</h2></div>
     <div class="bestiary-layout">
       <div class="bestiary-media">
         <figure>
@@ -130,16 +122,13 @@ public static void Heal(
             <span class="crop bestiary-scene"><img src="assets/bestiary.jpg" width="1920" height="1080" loading="lazy" alt="그림과 이름이 있는 획득한 슬라임 1종과 검은 실루엣으로 표시된 미획득 4종의 도감"></span>
             <span class="zoom-mark" aria-hidden="true">원본 보기 ↗</span>
           </button>
-          <figcaption>4열 격자로 정리한 도감 · 미획득 종의 실루엣은 유지</figcaption>
+          <figcaption>미획득 종은 기존처럼 실루엣으로 표시됩니다.</figcaption>
         </figure>
 
       </div>
       <div class="bestiary-copy">
-        <dl class="feedback-steps">
-          <div><dt>받은 피드백</dt><dd>목표와 진행 방법을 알기 어렵다는 의견을 받았습니다.</dd></div>
-          <div><dt>수정한 부분</dt><dd>도감을 그림·이름 중심의 4열 격자로 바꿨습니다. 조작법·탈출 방향 안내도 보완해 다시 배포했습니다.</dd></div>
-          <div><dt>다시 플레이한 뒤</dt><dd>수정본을 다시 플레이해 달라고 부탁했고, 진행 방법을 묻는 질문을 이전보다 적게 받았습니다.</dd></div>
-        </dl>
+        <p>테스트에서 게임의 목표와 진행 방법을 알기 어렵다는 의견을 받았습니다. 도감은 목록에서 한 줄에 네 종씩 보이는 격자로 바꾸고, 각 칸에 슬라임의 그림과 이름을 넣었습니다.</p>
+        <p>조작법과 탈출 방향 안내도 고쳐 다시 배포했습니다. 수정본을 플레이해 달라고 부탁했을 때는 진행 방법을 묻는 질문을 전보다 적게 받았습니다.</p>
         <a class="text-link" href="https://github.com/JugleGame/Slime/blob/757a33eff5e64b96b6b3adcd4c398abe131ba752/Assets/Scripts/UI/BestiaryPanel.cs" target="_blank" rel="noopener noreferrer">도감 수정 코드 <span aria-hidden="true">↗</span></a>
       </div>
     </div>
@@ -152,9 +141,9 @@ public static void Heal(
   </section>
 
   <section class="work-section tool-section" id="gif-tool" aria-labelledby="gif-title">
-    <div class="section-heading"><p class="section-index">03 <span>Python · Pillow</span></p><h2 id="gif-title">GIF 프레임을 PNG 한 장으로 변환</h2></div>
+    <div class="section-heading"><p class="section-index">Python · Pillow</p><h2 id="gif-title">GIF 프레임을 PNG 한 장으로 변환</h2></div>
     <div class="tool-description">
-      <p>GIF를 Unity로 가져오자 첫 프레임만 표시됐습니다.<br class="desktop-break"> Python·Pillow로 전체 프레임을 가로로 붙인 PNG를 만들었습니다.</p>
+      <p>슬라임 GIF를 Unity로 가져오자 첫 프레임만 보였습니다.<br class="desktop-break"> 프레임을 순서대로 꺼내 한 장의 PNG로 저장하는 스크립트를 만들었습니다.</p>
       <a class="text-link" href="https://github.com/JugleGame/Slime/blob/ed1c9283306e69231a0a5aee858b1cef26817590/Tools/extract_slime_strips.py" target="_blank" rel="noopener noreferrer">변환 코드 <span aria-hidden="true">↗</span></a>
     </div>
     <div class="conversion">
@@ -177,7 +166,7 @@ public static void Heal(
 
   <footer class="site-footer">
     <div><strong>정연수</strong><a href="mailto:yeonsoo3d@gmail.com">yeonsoo3d@gmail.com</a></div>
-    <div class="footer-links"><a href="https://github.com/ys143112" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a><a href="assets/Jeong_Yeonsoo_Portfolio.pdf?v=review2" download>PDF 다운로드 <span aria-hidden="true">↓</span></a></div>
+    <div class="footer-links"><a href="https://github.com/ys143112" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a><a href="assets/Jeong_Yeonsoo_Portfolio.pdf?v=20261118" download>PDF 다운로드 <span aria-hidden="true">↓</span></a></div>
     <p class="ai-note">코드 구현과 수정 과정에서 AI 도구를 활용했습니다.</p>
   </footer>
 </main>
